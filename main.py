@@ -37,16 +37,13 @@ def main(local, remote, device, adb, pull, push, copy_newer):
                "Music", "Pictures", "SimpleScanner", "SplitPDF", "Telegram", "viber",
                "Android/media/com.whatsapp/WhatsApp"]
     if not push:
-        for source in [""]:
+        for source in ["/sdcard/"]:
 
-            # this overwrites the option from cli
-            remote = f"/sdcard/{source}"
-
-            remote_files_str = run([adb] + device_switch + ['shell', 'find', remote, "-type", "f"], capture_output=True, text=True,
+            remote_files_str = run([adb] + device_switch + ['shell', 'find', source, "-type", "f"], capture_output=True, text=True,
                                    encoding='utf-8')
 
             # skips the top level folder containing all subfolders
-            remote_files = remote_files_str.stdout.split('\n')[1:]
+            remote_files = remote_files_str.stdout.split('\n')
 
             successes = 0
             errors = 0
@@ -55,12 +52,12 @@ def main(local, remote, device, adb, pull, push, copy_newer):
             start = time.time()
             with tqdm(bar_format='{desc}') as desc_bar:
                 for remote_file in (pbar := tqdm(remote_files)):
-                    if remote_file and "cache" not in remote_file.lower():
+                    if remote_file and "cache" not in remote_file.lower() and ".thumbnails" not in remote_file.lower():
+                        remote_parts = [re.sub(r'[:*?"<>|]', '-', part) for part in remote_file.split('/')]
                         local_file = os.path.join(
                             local,
-                            *remote_file.split('/'),
+                            *remote_parts,
                         )
-                        local_file = re.sub(r'[:*?"<>|]', '-', local_file)
                         desc_bar.set_description(remote_file)
                         print_statusline(local_file)
                         # local_file_path = os.path.dirname(local_file)
