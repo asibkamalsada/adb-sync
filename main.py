@@ -39,38 +39,7 @@ def print_statusline(msg: str, newline: bool = False):
 @argument("remote")
 def main(local, remote, device, adb, pull, push, copy_newer):
     device_switch = ["-s", device] if device else []
-    folders = [
-        "bluetooth",
-        "bilder",
-        "Books",
-        "DCIM",
-        "Documents",
-        "Download",
-        "haus",
-        "kawsar",
-        "makro",
-        "MakroSolutions",
-        "Marjam",
-        "MIUI",
-        "Movies",
-        "Pictures",
-        "Recordings",
-        "SimpleScanner",
-        "Snapchat",
-        "SplitPDF",
-        "Tachiyomi",
-        "Tasker",
-        "Tasks",
-        "Telegram",
-        "TeMeFi",
-        "verlobung_bilder",
-        "Android/media/com.whatsapp/WhatsApp",
-        "Android/data/com.simplescan.scanner",
-    ]
 
-    # folders = ["Android/media/com.whatsapp/WhatsApp"]
-
-    # folders = ["WhatsApp", "DCIM", "Download", "MIUI", "Movies", "Music", "Pictures", "Recordings",  "SimpleScanner", "Snapchat", "WhatsApp Business", "youcut"]
     if not push:
         remote_folders_str = run(
             [adb] + device_switch + ["shell", "ls", "-d", "/sdcard/*"],
