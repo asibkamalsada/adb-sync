@@ -11,7 +11,9 @@ from cloup.constraints import mutually_exclusive
 
 
 def print_statusline(msg: str, newline: bool = False):
-    return
+    """
+    Unused
+    """
     terminal_width = shutil.get_terminal_size().columns
 
     last_msg_length = (
@@ -91,7 +93,7 @@ def main(local, remote, device, adb, pull, push, copy_newer):
                             *remote_parts,
                         )
                         desc_bar.set_description(remote_file)
-                        print_statusline(local_file)
+                        # print_statusline(local_file)
                         # local_file_path = os.path.dirname(local_file)
 
                         overwrite = False
