@@ -56,6 +56,7 @@ def main(local, remote, device, adb, pull, push, copy_newer):
         "Pictures",
         "Recordings",
         "SimpleScanner",
+        "Snapchat",
         "SplitPDF",
         "Tachiyomi",
         "Tasker",
@@ -82,7 +83,7 @@ def main(local, remote, device, adb, pull, push, copy_newer):
         remote_folders.remove("")
         remote_folders.remove("/sdcard/Android")
         remote_folders.append("/sdcard/Android/media/com.whatsapp")
-        remote_folders.append("/sdcard/Android/data/com.simplescan.scanner")
+        # remote_folders.append("/sdcard/Android/data/com.simplescan.scanner")
 
         print(remote_folders)
 
